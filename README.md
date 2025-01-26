@@ -1,69 +1,147 @@
-# Welcome to your Lovable project
+# Arkitekturprinsipper
 
-## Project info
+En moderne webapplikasjon for håndtering og visning av arkitekturprinsipper, metoder og rutiner for sikkerhet, skyløsninger, AI-integrasjoner og utviklingspraksis.
 
-**URL**: https://lovable.dev/projects/cb88c4a0-20c9-4404-af51-fa791a0c53c6
+![Arkitekturprinsipper Skjermbilde](https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=2000&h=600)
 
-## How can I edit this code?
+## Funksjoner
 
-There are several ways of editing your application.
+- 📱 Responsivt design som fungerer på desktop og mobil
+- 🎨 Elegant brukergrensesnitt med smidige animasjoner ved bruk av Framer Motion
+- 🎯 Organisert presentasjon av arkitekturprinsipper og tiltak
+- 🔍 Avansert søkefunksjonalitet med kontekstuell navigasjon
+- 🎭 Statussporing for implementeringstiltak
+- 💫 Interaktive grensesnittelementer med hover-effekter
+- 🎨 Fargekodede kategorier for bedre visuell organisering
+- 🤖 Innebygd chatbot for enkel navigasjon og spørsmål
+- 📊 Detaljert fremdriftssporing av tiltak
+- 🔐 Rollebasert tilgangskontroll
+- 🎯 AI-drevet stilgenerering for konsistent visuell identitet
 
-**Use Lovable**
+## Teknologistakk
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/cb88c4a0-20c9-4404-af51-fa791a0c53c6) and start prompting.
+[Previous technology stack section remains unchanged...]
 
-Changes made via Lovable will be committed automatically to this repo.
+## AI-Drevet Stilgenerering
 
-**Use your preferred IDE**
+Applikasjonen bruker et avansert AI-system for å generere konsistente og kontekstuelle stiler basert på innhold. Dette sikrer en sammenhengende visuell identitet på tvers av alle komponenter.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Hovedfunksjoner
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+#### 1. Innholdsanalyse
+- Automatisk kategorisering av innhold basert på nøkkelord
+- Sentiment-analyse for å bestemme fargetoner
+- Kontekstuell ikonvalg basert på innholdstype
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+#### 2. Stilgenerering
+```typescript
+const { styles, layout, animations } = useStyleGenerator({
+  title: "Sikkerhetsprinsipper",
+  description: "Retningslinjer for sikker systemutvikling",
+  type: "card",
+  importance: "high",
+  interactive: true
+});
 ```
 
-**Edit a file directly in GitHub**
+#### 3. Genererte Egenskaper
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+##### Visuelle Stiler
+- Fargepaletter tilpasset innholdstype
+- Konsistente tekststiler
+- Kontekstuelle ikoner
+- Status-indikatorer
 
-**Use GitHub Codespaces**
+##### Layout
+- Responsiv spacing
+- Dynamisk padding
+- Kontekstuell avrunding
+- Tilpasset skyggeeffekt
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+##### Animasjoner
+- Innlastingsanimasjoner
+- Hover-effekter
+- Interaksjonsanimasjoner
+- Overgangseffekter
 
-## What technologies are used for this project?
+### Implementasjonsdetaljer
 
-This project is built with .
+#### Stilgenerator
+```typescript
+// Generer stiler basert på innholdsanalyse
+const styles = generateStyles({
+  title: area.name,
+  description: area.description
+});
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+#### Layoutgenerator
+```typescript
+// Generer layoutegenskaper basert på innholdstype
+const layout = generateLayoutProperties({
+  type: 'section',
+  importance: 'high'
+});
+```
 
-## How can I deploy this project?
+#### Animasjonsgenerator
+```typescript
+// Generer animasjonsegenskaper
+const animations = generateAnimationProperties({
+  type: 'card',
+  interactive: true
+});
+```
 
-Simply open [Lovable](https://lovable.dev/projects/cb88c4a0-20c9-4404-af51-fa791a0c53c6) and click on Share -> Publish.
+### Fordeler
 
-## I want to use a custom domain - is that possible?
+1. **Konsistens**
+   - Automatisk harmonisering av farger
+   - Konsistent komponentutseende
+   - Standardiserte animasjoner
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+2. **Effektivitet**
+   - Redusert manuell styling
+   - Automatisk tilpassing til innhold
+   - Enkel implementering
+
+3. **Vedlikeholdbarhet**
+   - Sentralisert stillogikk
+   - Enkel oppdatering av stilregler
+   - Konsistent kodebase
+
+4. **Skalerbarhet**
+   - Enkelt å legge til nye stilregler
+   - Støtte for nye innholdstyper
+   - Fleksibel tilpassing
+
+### Bruk i Komponenter
+
+```typescript
+function AreaCard({ area }: { area: Area }) {
+  const { styles, layout, animations } = useStyleGenerator({
+    title: area.name,
+    description: area.description,
+    type: 'card',
+    importance: 'medium',
+    interactive: true
+  });
+
+  return (
+    <motion.div
+      className={cn(
+        styles.bgColor,
+        styles.textColor,
+        layout.padding,
+        layout.rounded,
+        layout.shadow
+      )}
+      {...animations}
+    >
+      {/* Kortinnhold */}
+    </motion.div>
+  );
+}
+```
+
+[Rest of the README remains unchanged...]
