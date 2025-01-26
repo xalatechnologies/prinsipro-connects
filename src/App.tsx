@@ -18,18 +18,6 @@ import { LoadingPage } from '@/components/LoadingPage';
 
 export type ViewType = 'areas' | 'governance' | 'exceptions' | 'references' | 'manage';
 
-interface MainLayoutProps {
-  onSearch: (type: string, id: string) => void;
-  onAreaSelect: (areaId: string | null) => void;
-  onViewChange: (view: ViewType) => void;
-  currentView: ViewType;
-  showTour: boolean;
-  tourKey: number;
-  onTourComplete: () => void;
-  onTourStart: () => void;
-  children: React.ReactNode;
-}
-
 function App() {
   const dataService = useDataService();
   const [areas, setAreas] = useState<Area[]>([]);
@@ -83,6 +71,10 @@ function App() {
     setTourKey(prev => prev + 1);
   }, []);
 
+  const handleViewChange = (newView: ViewType) => {
+    setView(newView);
+  };
+
   const handleAreaUpdate = (area: Area) => {
     setAreas(prev => prev.map(a => a.id === area.id ? area : a));
   };
@@ -94,7 +86,7 @@ function App() {
   const handleAreaCreate = (newArea: Omit<Area, 'id'>) => {
     const areaWithId: Area = {
       ...newArea,
-      id: `area-${Date.now()}`, // Temporary ID generation
+      id: `area-${Date.now()}`,
       categories: [],
       useCases: [],
       created_at: new Date().toISOString()
@@ -127,7 +119,7 @@ function App() {
               <MainLayout
                 onSearch={handleSearchResult}
                 onAreaSelect={setSelectedArea}
-                onViewChange={setView}
+                onViewChange={handleViewChange}
                 currentView={view}
                 showTour={showTour}
                 tourKey={tourKey}
