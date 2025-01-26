@@ -18,6 +18,18 @@ import { LoadingPage } from '@/components/LoadingPage';
 
 export type ViewType = 'areas' | 'governance' | 'exceptions' | 'references' | 'manage';
 
+interface MainLayoutProps {
+  onSearch: (type: string, id: string) => void;
+  onAreaSelect: (areaId: string | null) => void;
+  onViewChange: (view: ViewType) => void;
+  currentView: ViewType;
+  showTour: boolean;
+  tourKey: number;
+  onTourComplete: () => void;
+  onTourStart: () => void;
+  children: React.ReactNode;
+}
+
 function App() {
   const dataService = useDataService();
   const [areas, setAreas] = useState<Area[]>([]);
@@ -71,9 +83,9 @@ function App() {
     setTourKey(prev => prev + 1);
   }, []);
 
-  const handleViewChange = (newView: ViewType) => {
+  const handleViewChange = useCallback((newView: ViewType) => {
     setView(newView);
-  };
+  }, []);
 
   const handleAreaUpdate = (area: Area) => {
     setAreas(prev => prev.map(a => a.id === area.id ? area : a));
