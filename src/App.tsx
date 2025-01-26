@@ -27,6 +27,7 @@ interface MainLayoutProps {
   tourKey: number;
   onTourComplete: () => void;
   onTourStart: () => void;
+  children: React.ReactNode;
 }
 
 function App() {
