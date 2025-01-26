@@ -18,6 +18,17 @@ import { LoadingPage } from '@/components/LoadingPage';
 
 type ViewType = 'areas' | 'governance' | 'exceptions' | 'references' | 'manage';
 
+interface MainLayoutProps {
+  onSearch: (type: string, id: string) => void;
+  onAreaSelect: (areaId: string | null) => void;
+  onViewChange: (view: ViewType) => void;
+  currentView: ViewType;
+  showTour: boolean;
+  tourKey: number;
+  onTourComplete: () => void;
+  onTourStart: () => void;
+}
+
 function App() {
   const dataService = useDataService();
   const [areas, setAreas] = useState<Area[]>([]);
@@ -79,8 +90,13 @@ function App() {
     setAreas(prev => prev.filter(a => a.id !== areaId));
   };
 
-  const handleAreaCreate = (newArea: Area) => {
-    setAreas(prev => [...prev, newArea]);
+  const handleAreaCreate = (newArea: Omit<Area, 'id'>) => {
+    // In a real app, you'd generate an ID on the server
+    const areaWithId = {
+      ...newArea,
+      id: `area-${Date.now()}` // Temporary ID generation
+    };
+    setAreas(prev => [...prev, areaWithId]);
   };
 
   if (loading) {
@@ -108,7 +124,7 @@ function App() {
               <MainLayout
                 onSearch={handleSearchResult}
                 onAreaSelect={setSelectedArea}
-                onViewChange={(v: ViewType) => setView(v)}
+                onViewChange={setView}
                 currentView={view}
                 showTour={showTour}
                 tourKey={tourKey}
