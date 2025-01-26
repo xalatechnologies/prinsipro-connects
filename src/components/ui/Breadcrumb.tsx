@@ -5,6 +5,7 @@ import { ChevronRight } from 'lucide-react';
 export interface BreadcrumbItem {
   label: string;
   href?: string;
+  icon?: React.ReactNode;
 }
 
 interface BreadcrumbProps {
@@ -26,10 +27,14 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
                 href={item.href}
                 className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600"
               >
+                {item.icon && <span className="mr-2">{item.icon}</span>}
                 {item.label}
               </a>
             ) : (
-              <span className="text-sm font-medium text-gray-500">{item.label}</span>
+              <span className="inline-flex items-center text-sm font-medium text-gray-500">
+                {item.icon && <span className="mr-2">{item.icon}</span>}
+                {item.label}
+              </span>
             )}
           </li>
         ))}

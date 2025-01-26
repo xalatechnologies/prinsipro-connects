@@ -87,24 +87,17 @@ function App() {
     setView(newView);
   }, []);
 
-  const handleAreaUpdate = (area: Area) => {
+  const handleAreaUpdate = useCallback((area: Area) => {
     setAreas(prev => prev.map(a => a.id === area.id ? area : a));
-  };
+  }, []);
 
-  const handleAreaDelete = (areaId: string) => {
+  const handleAreaDelete = useCallback((areaId: string) => {
     setAreas(prev => prev.filter(a => a.id !== areaId));
-  };
+  }, []);
 
-  const handleAreaCreate = (newArea: Omit<Area, 'id'>) => {
-    const areaWithId: Area = {
-      ...newArea,
-      id: `area-${Date.now()}`,
-      categories: [],
-      useCases: [],
-      created_at: new Date().toISOString()
-    };
-    setAreas(prev => [...prev, areaWithId]);
-  };
+  const handleAreaCreate = useCallback((newArea: Area) => {
+    setAreas(prev => [...prev, newArea]);
+  }, []);
 
   if (loading) {
     return <LoadingPage />;
