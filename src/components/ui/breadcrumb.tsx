@@ -1,10 +1,10 @@
+import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export interface BreadcrumbItem {
   label: string;
-  path?: string;
-  onClick?: () => void;
+  href?: string;
 }
 
 interface BreadcrumbProps {
@@ -14,21 +14,21 @@ interface BreadcrumbProps {
 
 export function Breadcrumb({ items, className }: BreadcrumbProps) {
   return (
-    <nav className={cn("flex items-center space-x-2 text-sm text-gray-500", className)}>
+    <nav className={cn("flex items-center space-x-2 text-sm", className)}>
       {items.map((item, index) => (
-        <div key={index} className="flex items-center">
-          {index > 0 && <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />}
-          {item.onClick || item.path ? (
-            <button
-              onClick={item.onClick}
-              className="hover:text-gray-900 transition-colors"
-            >
-              {item.label}
-            </button>
-          ) : (
-            <span className="text-gray-900">{item.label}</span>
+        <React.Fragment key={item.label}>
+          {index > 0 && (
+            <ChevronRight className="h-4 w-4 text-gray-500" />
           )}
-        </div>
+          <span
+            className={cn(
+              "text-gray-600 hover:text-gray-900 transition-colors",
+              index === items.length - 1 && "font-medium text-gray-900"
+            )}
+          >
+            {item.label}
+          </span>
+        </React.Fragment>
       ))}
     </nav>
   );

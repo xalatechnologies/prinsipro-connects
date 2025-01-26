@@ -71,23 +71,16 @@ function App() {
     setTourKey(prev => prev + 1);
   }, []);
 
-  // Area management handlers
-  const handleAreaUpdate = async (area: Area) => {
+  const handleAreaUpdate = (area: Area) => {
     setAreas(prev => prev.map(a => a.id === area.id ? area : a));
   };
 
-  const handleAreaDelete = async (areaId: string) => {
+  const handleAreaDelete = (areaId: string) => {
     setAreas(prev => prev.filter(a => a.id !== areaId));
   };
 
-  const handleAreaCreate = async (newArea: Omit<Area, 'id'>) => {
-    const area = {
-      ...newArea,
-      id: newArea.id as Area['id'],
-      categories: [],
-      useCases: []
-    };
-    setAreas(prev => [...prev, area]);
+  const handleAreaCreate = (newArea: Area) => {
+    setAreas(prev => [...prev, newArea]);
   };
 
   if (loading) {
@@ -106,21 +99,16 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Auth Routes */}
           <Route path="/auth/signin" element={<SignIn />} />
           <Route path="/auth/signup" element={<SignUp />} />
           <Route path="/auth/reset-password" element={<ResetPassword />} />
-          
-          {/* Admin Routes */}
           <Route path="/admin/*" element={<AdminRoutes />} />
-          
-          {/* Protected Routes */}
           <Route path="/*" element={
             <RequireAuth>
               <MainLayout
                 onSearch={handleSearchResult}
                 onAreaSelect={setSelectedArea}
-                onViewChange={(v: string) => setView(v as ViewType)}
+                onViewChange={(v: ViewType) => setView(v)}
                 currentView={view}
                 showTour={showTour}
                 tourKey={tourKey}
@@ -135,7 +123,6 @@ function App() {
                     onAreaCreate={handleAreaCreate}
                   />
                 )}
-
                 {view === 'areas' && (
                   <AreaView
                     areas={areas}
@@ -145,7 +132,6 @@ function App() {
                     onCategorySelect={setSelectedCategory}
                   />
                 )}
-
                 {view === 'governance' && <GovernanceOverview />}
                 {view === 'exceptions' && <ExceptionList />}
                 {view === 'references' && <ReferenceList />}
