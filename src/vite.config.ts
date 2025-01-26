@@ -1,18 +1,21 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from "path";
+import { componentTagger } from "lovable-tagger";
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     react({
       babel: {
         babelrc: false,
         configFile: false,
       }
-    })
-  ],
+    }),
+    mode === 'development' && componentTagger(),
+  ].filter(Boolean),
   server: {
-    port: 8080
+    host: "::",
+    port: 8080,
   },
   optimizeDeps: {
     exclude: ['lucide-react'],
@@ -32,4 +35,4 @@ export default defineConfig({
       "@features": path.resolve(__dirname, "./src/features")
     },
   },
-});
+}));

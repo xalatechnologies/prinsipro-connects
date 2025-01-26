@@ -14,20 +14,22 @@ interface BreadcrumbProps {
 
 export function Breadcrumb({ items, className }: BreadcrumbProps) {
   return (
-    <nav className={cn("flex items-center space-x-2 text-sm", className)}>
+    <nav className={cn("flex items-center space-x-1 text-sm text-gray-500", className)}>
       {items.map((item, index) => (
         <React.Fragment key={item.label}>
           {index > 0 && (
-            <ChevronRight className="h-4 w-4 text-gray-500" />
+            <ChevronRight className="h-4 w-4 text-gray-400" />
           )}
-          <span
-            className={cn(
-              "text-gray-600 hover:text-gray-900 transition-colors",
-              index === items.length - 1 && "font-medium text-gray-900"
-            )}
-          >
-            {item.label}
-          </span>
+          {item.href ? (
+            <a
+              href={item.href}
+              className="hover:text-gray-700 hover:underline"
+            >
+              {item.label}
+            </a>
+          ) : (
+            <span className="text-gray-900">{item.label}</span>
+          )}
         </React.Fragment>
       ))}
     </nav>
