@@ -16,7 +16,7 @@ import { GovernanceOverview } from '@components/governance/GovernanceOverview';
 import { ReferenceList } from '@components/governance/ReferenceList';
 import { LoadingPage } from '@/components/LoadingPage';
 
-type ViewType = 'areas' | 'governance' | 'exceptions' | 'references' | 'manage';
+export type ViewType = 'areas' | 'governance' | 'exceptions' | 'references' | 'manage';
 
 interface MainLayoutProps {
   onSearch: (type: string, id: string) => void;
@@ -91,10 +91,12 @@ function App() {
   };
 
   const handleAreaCreate = (newArea: Omit<Area, 'id'>) => {
-    // In a real app, you'd generate an ID on the server
-    const areaWithId = {
+    const areaWithId: Area = {
       ...newArea,
-      id: `area-${Date.now()}` // Temporary ID generation
+      id: `area-${Date.now()}`, // Temporary ID generation
+      categories: [],
+      useCases: [],
+      created_at: new Date().toISOString()
     };
     setAreas(prev => [...prev, areaWithId]);
   };
