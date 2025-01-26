@@ -11,7 +11,10 @@ export default [
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.es2020
+      },
       parser: tsParser,
       parserOptions: {
         project: './tsconfig.app.json',
