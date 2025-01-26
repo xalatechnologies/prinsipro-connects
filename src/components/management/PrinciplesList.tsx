@@ -6,8 +6,7 @@ import { Plus, Pencil, Trash2, Filter, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { PrincipleForm } from './PrincipleForm';
 import { ConfirmDialog } from './ConfirmDialog';
-import { Breadcrumb } from '@/components/ui/Breadcrumb';
-
+import { Breadcrumb } from '@/components/ui/breadcrumb';
 interface PrinciplesListProps {
   principles: Principle[];
   categoryName: string;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { AdminLayout } from '@/components/admin/layout/AdminLayout';
 import { SettingsForm } from '@/components/admin/settings/SettingsForm';
-import { Breadcrumb } from '@/components/ui/Breadcrumb';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Settings } from 'lucide-react';
 
 export function SettingsPage() {

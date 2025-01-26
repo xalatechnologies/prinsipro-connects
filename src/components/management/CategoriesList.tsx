@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { StyledCard } from '@/components/ui/StyledCard';
 import { CategoryForm } from './CategoryForm';
 import { ConfirmDialog } from './ConfirmDialog';
-import { Breadcrumb } from '@/components/ui/Breadcrumb';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
 
 interface CategoriesListProps {
   categories: Category[];

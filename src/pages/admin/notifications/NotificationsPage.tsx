@@ -1,7 +1,7 @@
 import React from 'react';
 import { AdminLayout } from '@/components/admin/layout/AdminLayout';
 import { DashboardNotifications } from '@/components/admin/notifications/DashboardNotifications';
-import { Breadcrumb } from '@/components/ui/Breadcrumb';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Bell } from 'lucide-react';
 
 export function NotificationsPage() {

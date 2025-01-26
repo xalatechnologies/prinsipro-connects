@@ -1,7 +1,7 @@
 import React from 'react';
 import { AdminLayout } from '@/components/admin/layout/AdminLayout';
 import { DashboardActivity } from '@/components/admin/activity/DashboardActivity';
-import { Breadcrumb } from '@/components/ui/Breadcrumb';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Activity } from 'lucide-react';
 
 export function ActivityPage() {

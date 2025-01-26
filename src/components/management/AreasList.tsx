@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { StyledCard } from '@/components/ui/StyledCard';
 import { AreaForm } from './AreaForm';
 import { ConfirmDialog } from './ConfirmDialog';
-import { Breadcrumb } from '@/components/ui/Breadcrumb';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { useNavigate } from 'react-router-dom';
 
 interface AreasListProps {
