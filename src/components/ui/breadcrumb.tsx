@@ -1,44 +1,35 @@
-import React from 'react';
 import { ChevronRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export interface BreadcrumbItem {
   label: string;
-  href?: string;
+  path?: string;
+  onClick?: () => void;
 }
 
 interface BreadcrumbProps {
   items: BreadcrumbItem[];
-  onNavigate?: (href: string) => void;
+  className?: string;
 }
 
-export function Breadcrumb({ items, onNavigate }: BreadcrumbProps) {
+export function Breadcrumb({ items, className }: BreadcrumbProps) {
   return (
-    <nav className="flex" aria-label="Breadcrumb">
-      <ol className="inline-flex items-center space-x-1 md:space-x-3">
-        {items.map((item, index) => (
-          <li key={index} className="inline-flex items-center">
-            {index > 0 && (
-              <ChevronRight className="w-4 h-4 text-gray-400 mx-1" />
-            )}
-            {item.href ? (
-              <a
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  onNavigate?.(item.href!);
-                }}
-                className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600"
-              >
-                {item.label}
-              </a>
-            ) : (
-              <span className="text-sm font-medium text-gray-500">
-                {item.label}
-              </span>
-            )}
-          </li>
-        ))}
-      </ol>
+    <nav className={cn("flex items-center space-x-2 text-sm text-gray-500", className)}>
+      {items.map((item, index) => (
+        <div key={index} className="flex items-center">
+          {index > 0 && <ChevronRight className="h-4 w-4 mx-2 text-gray-400" />}
+          {item.onClick || item.path ? (
+            <button
+              onClick={item.onClick}
+              className="hover:text-gray-900 transition-colors"
+            >
+              {item.label}
+            </button>
+          ) : (
+            <span className="text-gray-900">{item.label}</span>
+          )}
+        </div>
+      ))}
     </nav>
   );
 }

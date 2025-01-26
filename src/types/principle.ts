@@ -1,10 +1,9 @@
 import { Measure } from './measure';
 import { ImplementationGuideline } from './implementation';
 import { ReferenceMapping } from './reference';
-import { Exception } from './exception';
 import { Review } from './progress';
-import { DivideIcon as LucideIcon } from 'lucide-react';
 import { Attachment } from './attachment';
+import type { LucideIcon } from './icon';
 
 export type PrincipleStatus = 'draft' | 'review' | 'approved' | 'deprecated';
 
