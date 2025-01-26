@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { RequireAuth } from '@/components/auth/RequireAuth';
 import { SignIn } from '@/pages/auth/SignIn';
@@ -9,17 +9,12 @@ import { AdminRoutes } from '@/routes/AdminRoutes';
 import { MainLayout } from '@/layouts/MainLayout';
 import { AreaView } from '@/features/areas/AreaView';
 import { ManagementView } from '@/features/management/ManagementView';
-import { AdminDashboard } from '@/components/admin/AdminDashboard';
 import { useDataService } from '@hooks/useDataService';
-import { Area, Category } from '@types/index';
-import { Users, FileText, AlertTriangle, Activity } from 'lucide-react';
-import { StyledCard } from '@/components/ui/StyledCard';
+import type { Area, Category } from '@/types';
 import { ExceptionList } from '@components/governance/ExceptionList';
 import { GovernanceOverview } from '@components/governance/GovernanceOverview';
 import { ReferenceList } from '@components/governance/ReferenceList';
 import { LoadingPage } from '@/components/LoadingPage';
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 function App() {
   const dataService = useDataService();
@@ -31,9 +26,6 @@ function App() {
   const [view, setView] = useState<'areas' | 'governance' | 'exceptions' | 'references' | 'manage'>('areas');
   const [showTour, setShowTour] = useState(false);
   const [tourKey, setTourKey] = useState(0);
-  const [managementView, setManagementView] = useState<'areas' | 'categories' | 'principles' | null>(null);
-  const [selectedManagementArea, setSelectedManagementArea] = useState<Area | null>(null);
-  const [selectedManagementCategory, setSelectedManagementCategory] = useState<Category | null>(null);
 
   useEffect(() => {
     const loadAreas = async () => {
@@ -68,11 +60,6 @@ function App() {
     }
   }, [areas, dataService]);
 
-  const handleStartTour = useCallback(() => {
-    setShowTour(true);
-    setTourKey(prev => prev + 1);
-  }, []);
-
   const handleTourComplete = useCallback(() => {
     setShowTour(false);
   }, []);
@@ -82,32 +69,27 @@ function App() {
     setTourKey(prev => prev + 1);
   }, []);
 
-  // Management handlers
+  // Area management handlers
   const handleAreaUpdate = async (area: Area) => {
-    // In a real app, this would call an API
     setAreas(prev => prev.map(a => a.id === area.id ? area : a));
   };
 
   const handleAreaDelete = async (areaId: string) => {
-    // In a real app, this would call an API
     setAreas(prev => prev.filter(a => a.id !== areaId));
   };
 
-  const handleAreaCreate = async (area: Omit<Area, 'id'>) => {
-    // In a real app, this would call an API
-    const newArea = {
-      ...area,
-      id: `area-${Date.now()}`,
+  const handleAreaCreate = async (newArea: Omit<Area, 'id'>) => {
+    const area = {
+      ...newArea,
+      id: newArea.id as Area['id'],
       categories: [],
       useCases: []
-    } as Area;
-    setAreas(prev => [...prev, newArea]);
+    };
+    setAreas(prev => [...prev, area]);
   };
 
   if (loading) {
-    return (
-      <LoadingPage />
-    );
+    return <LoadingPage />;
   }
 
   if (error) {
@@ -119,7 +101,6 @@ function App() {
   }
 
   const currentArea = areas.find(area => area.id === selectedArea);
-  const currentCategory = currentArea?.categories.find(cat => cat.id === selectedCategory);
 
   return (
     <AuthProvider>

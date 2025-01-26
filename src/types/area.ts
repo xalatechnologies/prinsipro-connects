@@ -3,14 +3,7 @@ import { UseCase } from './useCase';
 import type { LucideIcon } from 'lucide-react';
 import { Stats } from './stats';
 
-export type AreaId = 
-  | 'overordnede-arkitekturprinsipper'
-  | 'sikkerhet'
-  | 'identitets-tilgangsstyring'
-  | 'integrasjon-masterdata'
-  | 'sky-plattform'
-  | 'utvikling-testing'
-  | 'automasjon-ai';
+export type AreaId = string;
 
 export interface AreaTab {
   id: string;
