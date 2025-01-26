@@ -10,11 +10,13 @@ import { MainLayout } from '@/layouts/MainLayout';
 import { AreaView } from '@/features/areas/AreaView';
 import { ManagementView } from '@/features/management/ManagementView';
 import { useDataService } from '@hooks/useDataService';
-import type { Area, Category } from '@/types';
+import type { Area } from '@/types';
 import { ExceptionList } from '@components/governance/ExceptionList';
 import { GovernanceOverview } from '@components/governance/GovernanceOverview';
 import { ReferenceList } from '@components/governance/ReferenceList';
 import { LoadingPage } from '@/components/LoadingPage';
+
+type ViewType = 'areas' | 'governance' | 'exceptions' | 'references' | 'manage';
 
 function App() {
   const dataService = useDataService();
@@ -23,7 +25,7 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [view, setView] = useState<'areas' | 'governance' | 'exceptions' | 'references' | 'manage'>('areas');
+  const [view, setView] = useState<ViewType>('areas');
   const [showTour, setShowTour] = useState(false);
   const [tourKey, setTourKey] = useState(0);
 
@@ -100,8 +102,6 @@ function App() {
     );
   }
 
-  const currentArea = areas.find(area => area.id === selectedArea);
-
   return (
     <AuthProvider>
       <Router>
@@ -120,7 +120,7 @@ function App() {
               <MainLayout
                 onSearch={handleSearchResult}
                 onAreaSelect={setSelectedArea}
-                onViewChange={setView}
+                onViewChange={(v: string) => setView(v as ViewType)}
                 currentView={view}
                 showTour={showTour}
                 tourKey={tourKey}
